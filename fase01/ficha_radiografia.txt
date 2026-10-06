@@ -1,0 +1,76 @@
+RADIOGRAFÍA DE UNA PARTIDA DE NEVWORLD
+Fase 01
+
+
+DATOS DE MI PARTIDA
+
+Nombre del archivo JSONL:
+nevworld_871785836360798065_20261005_182810.jsonl
+
+Número total de eventos:
+3487
+
+Número de columnas:
+36
+
+Nombres de las columnas:
+['schema_version', 'run_id', 'seed', 'event_index', 'tick', 'type', 'started_at_utc', 'building_id', 'building_type', 'cell_x', 'cell_y', 'width', 'height', 'villager_id', 'activity', 'resource_type', 'amount_before', 'amount_after', 'amount_delta', 'population', 'constructed_buildings', 'wood_stock', 'food_stock', 'gold_stock', 'day', 'prey_type', 'actor_id', 'target_id', 'interaction_type', 'topic', 'relationship_actor_to_target_after', 'relationship_target_to_actor_after', 'need_type', 'state', 'cause', 'name']
+
+Tipo del primer evento registrado:
+simulation_started
+
+Tipo de evento más frecuente y cantidad:
+villager_activity_changed - 2250
+
+Recuento de todos los tipos de evento:
+
+villager_activity_changed: 2250
+world_snapshot: 395
+villager_need_changed: 347
+resource_changed: 184
+social_interaction: 122
+villager_drank: 68
+villager_ate: 52
+hunt_completed: 28
+construction_abandoned: 22
+construction_expired: 9
+building_created: 6
+villager_created: 2
+simulation_started: 1
+villager_died: 1
+
+run_id:
+20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b
+
+Semilla:
+871785836360798065
+
+Versión del esquema:
+2
+
+Tick mínimo:
+0
+
+Tick máximo:
+237000
+
+Resultado de las validaciones:
+OK
+
+
+RESPUESTAS
+
+1. ¿Qué te permite afirmar el recuento sobre tu partida? ¿Por qué el tipo más frecuente no tiene que ser el más importante?
+
+Nos da la posibilidad de poder analizar los datos recogidos, y nos indica que se están ralizando eventos y que el juego transcurre con normalidad, así como conocer cuantos eventos y de cada tipo se han registrado en la partida.
+El evento más frecuente no tiene por qué ser el más importante. Una muerte puede aparecer una vez y ser más significativa que cientos de movimientos.
+
+2. ¿Por qué una celda vacía no significa necesariamente que el registro esté mal?
+
+Porque los eventos pueden representar acontecimientos diferentes y no todos utilizan los mismos campos. Por eso, cuando pandas coloca todos los eventos en un mismo DataFrame, algunas columnas quedan vacías para determinados tipos de evento. Estos valores aparecen normalmente como NaN y representan una ausencia de información para ese evento, no necesariamente un error ni un valor cero.
+
+3. ¿Qué sabes ahora del archivo y qué pregunta sobre tu partida necesitaría un análisis posterior?
+
+Ahora sabemos que el archivo contiene 3487 eventos y 36 columnas, conocemos los diferentes tipos de eventos registrados, sus frecuencias, la sesión a la que pertenecen, la semilla utilizada, la versión del esquema y el intervalo de ticks de la partida. También sabemos que las validaciones básicas se cumplen.
+
+Un análisis posterior podría responder preguntas más concretas sobre cómo evolucionó la partida, por ejemplo qué acontecimientos importantes ocurrieron durante el tiempo de simulación, cómo cambiaron los recursos o qué relación hubo entre las actividades de los aldeanos y otros eventos.
