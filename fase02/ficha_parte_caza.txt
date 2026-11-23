@@ -1,0 +1,42 @@
+EL PARTE DE CAZA: DEL REGISTRO A UNA TABLA ÚTIL
+Actividad 02
+
+Identificación de los datos
+- Archivo RAW: data/raw/proceseed/nevworld_871785836360798065_20261005_182810.jsonl
+- run_id: 20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b
+- Evento elegido: hunt_completed; registra que una cacería terminó.
+- Resultado: 28 filas en data/processed/hunts.csv.
+
+Decisiones de diseño
+
+Pregunta | Campo o valor elegido | Justificación
+- ¿Qué evento demuestra que terminó? | type = hunt_completed | Es el tipo de evento que registra una cacería completada.
+- ¿Quién la completó? | villager_id | Identifica al aldeano asociado al evento.
+- ¿Qué presa aparece? | prey_type | Indica la presa registrada en esa cacería.
+- ¿Cuándo ocurrió? | tick; simulation_day = tick // 12000 | tick conserva el momento simulado; simulation_day facilita agrupar por día.
+- ¿A qué partida pertenece? | run_id | Identifica la partida de origen.
+- ¿Cómo localizo el original? | run_id y event_index | La pareja identifica el evento sin confundirlo con otro registro.
+
+Ejemplo real del JSONL
+{"schema_version":2,"run_id":"20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b","event_index":49,"tick":878,"type":"hunt_completed","villager_id":1791,"prey_type":"deer"}
+
+La fila contiene la partida, el índice del evento, el tick, el aldeano, el tipo de evento y la presa. No contiene la cantidad de comida producida. activity no es necesario porque el evento de caza completada ya identifica el hecho; food_stock describe existencias y amount_delta registra cambios generales de recursos, sin atribuirlos por sí solos a una cacería concreta.
+
+Comprobación de dos filas del CSV contra el RAW
+
+run_id | event_index | tick | villager_id | prey_type | Resultado
+- 20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b | 49 | 878 | 1791 | deer | Coincide con el evento original.
+- 20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b | 53 | 1001 | 1788 | deer | Coincide con el evento original.
+
+Comprobaciones del script
+- El número de filas coincide con los 28 eventos hunt_completed.
+- No hay claves (run_id, event_index) duplicadas.
+- Los campos obligatorios están informados en todas las filas.
+- simulation_day coincide con tick // 12000.
+- Se conservan las cabeceras aunque no haya filas; en esta partida hay 28.
+
+Respuestas
+1. Seis filas no implican seis cazadores distintos: un aldeano puede completar más de una cacería y aparecer en varias filas.
+2. Una fila registra una cacería completada en un tick concreto; no afirma que el aldeano cazara durante todo el día.
+3. Eliminar primero todas las filas con algún NaN puede borrar eventos válidos, porque las columnas irrelevantes para un tipo de evento suelen estar vacías. Primero se filtra el evento de caza y después se validan sus campos necesarios.
+4. Un CSV vacío solo permitiría afirmar que el RAW analizado no contiene eventos de cacería completada. No demuestra que nadie intentara cazar.

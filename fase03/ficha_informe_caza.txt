@@ -1,0 +1,33 @@
+EL INFORME DE CAZA: DE LAS TABLAS A LAS CONCLUSIONES
+Actividad 03
+
+Identificación
+- Archivo RAW de origen: data/raw/proceseed/nevworld_871785836360798065_20261005_182810.jsonl
+- run_id: 20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b
+- Tablas utilizadas: data/processed/hunts.csv y data/processed/resources.csv
+
+Diseño de las consultas
+
+Pregunta | Tabla y columnas | Operación y motivo
+- Total de cacerías | hunts.csv, filas | len(hunts); cada fila representa una cacería completada.
+- Cacerías por presa | hunts.csv, prey_type | value_counts(); cuenta filas por categoría.
+- Porcentaje por presa | hunts.csv, prey_type | value_counts(normalize=True) * 100; divide por el total de cacerías.
+- Cacerías por día | hunts.csv, simulation_day | value_counts().sort_index(); cuenta y ordena los días observados.
+- Cambios de comida | resources.csv, resource_type y amount_delta | Filtrar food y sumar cambios positivos, negativos y netos.
+
+Resultados
+- Total de cacerías completadas: 28.
+- Por presa: sheep 19 (67,9 %); deer 9 (32,1 %).
+- Por día observado: día 0: 3; día 5: 3; día 6: 4; día 7: 1; día 9: 1; día 12: 4; día 13: 1; día 14: 3; día 15: 2; día 16: 2; día 17: 2; día 18: 2.
+- Eventos de cambio de comida: 91.
+- Incrementos registrados: 174.
+- Reducciones registradas: 114.
+- Balance neto registrado: +60.
+- Validaciones: ambas tablas tienen las columnas necesarias, corresponden al mismo run_id, no repiten la clave (run_id, event_index) y los campos usados no están ausentes. Los recuentos por presa y día suman 28; incrementos menos reducciones es igual al balance neto. Comprobaciones superadas.
+
+Conclusiones
+1. sheep tiene el mayor recuento, con 19 cacerías; deer tiene 9.
+2. El porcentaje representa cacerías: el denominador son las 28 filas de hunts.csv. No es porcentaje de aldeanos ni de tiempo.
+3. No necesariamente. Los días 6 y 12 empatan con cuatro cacerías registradas, pero contar cacerías no mide cuánto tiempo se dedicó a cazar.
+4. El balance +60 resume los cambios de comida registrados en resources.csv; no indica por sí solo las existencias finales. Para obtenerlas habría que conocer el stock inicial y todos los cambios del mismo intervalo.
+5. No se puede demostrar que todos los incrementos provengan de la caza. Haría falta una relación explícita entre cada cambio de comida y su evento de cacería, por ejemplo una referencia al evento que lo originó.

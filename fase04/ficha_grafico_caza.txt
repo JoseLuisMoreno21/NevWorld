@@ -1,0 +1,19 @@
+EL PARTE DE CAZA, DE UN VISTAZO
+Actividad 04
+
+Decisiones iniciales
+- Cada barra representa el número de cacerías completadas registradas para un tipo de presa.
+- El eje vertical muestra el número de cacerías (eventos), no unidades de comida.
+- Uso barras porque los tipos de presa son categorías que se comparan por recuento; una línea sugeriría una secuencia continua entre ellas.
+- Título: “Cacerías completadas registradas por tipo de presa”.
+
+Comparación con la actividad 03
+- sheep: 19 cacerías.
+- deer: 9 cacerías.
+- Total representado: 28, igual que las 28 filas de hunts.csv y la suma de la actividad 03.
+- El gráfico se guardó como 05_hunts_by_prey.png.
+
+Tres frases finales
+1. Observación: sheep tiene más registros, con 19 cacerías completadas; deer tiene 9.
+2. Límite: el gráfico cuenta cacerías por presa, pero no muestra cuánto tiempo se dedicó a cazar ni cuánta comida produjo cada presa.
+3. Pregunta pendiente: ¿qué presa produjo más comida por cacería? Haría falta registrar la cantidad obtenida y vincularla a cada cacería mediante una clave de evento.
