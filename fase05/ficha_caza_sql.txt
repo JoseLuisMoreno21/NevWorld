@@ -1,0 +1,22 @@
+EL PARTE DE CAZA TAMBIÉN HABLA SQL
+Actividad 05
+
+Partida utilizada
+- run_id: 20261005_182810_871785836360798065_ed4231eeb8bc49599dc98ccbb698670b
+- Entrada: data/processed/hunts.csv, 28 filas.
+
+Tamaños
+- hunts.csv: 2728 bytes.
+- hunts.parquet: 4718 bytes.
+- En esta partida, CSV ocupa menos. El resultado describe estos datos; no demuestra que CSV vaya a ocupar menos que Parquet siempre.
+
+Resultado SQL por presa
+- sheep: 19 cacerías.
+- deer: 9 cacerías.
+- Suma de hunt_count: 28; coincide con las filas de hunts.csv y los recuentos de las actividades 03 y 04.
+- Salida entregable: hunts_by_prey_sql.csv.
+
+Respuestas
+1. Cada fila del resultado representa un tipo de presa y su número de cacerías completadas registradas. Cuenta cacerías, no unidades de comida.
+2. AS hunt_count asigna ese nombre a la columna calculada por COUNT(*); no modifica el Parquet. Si se cambia a total_cacerias, habría que actualizar ORDER BY, la comprobación de la suma, los accesos a la columna del DataFrame y la salida que usa ese nombre.
+3. En esta partida ocupa menos hunts.csv. El tamaño depende de los datos, las columnas, la compresión y el formato; una comparación de una partida no determina cuál será mejor en otros casos.
